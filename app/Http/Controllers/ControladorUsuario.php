@@ -12,11 +12,13 @@ use App\Http\Requests\ActualizarUsuario;
 
 class ControladorUsuario extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    function __construct()
+    {
+        $this->middleware('auth');
+        
+    }
+
     public function index()
     {
         $users = $users = \App\User::all(); 
@@ -58,12 +60,7 @@ class ControladorUsuario extends Controller
 
                ]);
 
-
-
-           //    return view('usuarios.index');
-      //return redirect()->route('usuarios.index'); 
-     // auth()->user()->id = $usuario()->id;
-      return 'funciona';
+      return  redirect()->route('login')->with('success','Gracias por registrarse, puede iniciar sesion ahora si desea');;
      // return redirect()->route('login');
     }
 
@@ -76,7 +73,9 @@ class ControladorUsuario extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('usuarios.show',compact('user'));
+        $tipo = TipoDni::findOrFail($user->tipo_dni);
+
+        return view('usuarios.show',compact('user','tipo'));
     }
 
     /**
@@ -88,7 +87,8 @@ class ControladorUsuario extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('usuarios.edit',compact('user'));
+        $tipos = TipoDni::all();
+        return view('usuarios.edit',compact('user','tipos'));
         //return 'hola desde editar'. $user->id;
     }
 
@@ -101,8 +101,17 @@ class ControladorUsuario extends Controller
      */
     public function update(ActualizarUsuario $request, $id)
     {
-       $user = User::findOrFail($id);
-       $user->update($request->all());
+       
+       DB::table('users')->where('id',$id)->update([
+        "name" => $request -> input('name'),      // en la columna nombre guarda el dato del campo nombre del formulario
+        "email" => $request -> input('email'),
+        "dni" => $request -> input('dni'),
+        "tipo_dni" => $request -> input('tipo'),
+        "updated_at" => Carbon::now(),
+        ]);
+    //    $user = User::findOrFail($id);
+    //    $user->update($request->all());
+       
        return back()->with('info','Usuario Actualizado');
     }
 
@@ -117,5 +126,11 @@ class ControladorUsuario extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return back();
+    }
+    public function ver()
+    {
+        $user= User::all();
+        $us = ($user->last()); // obtengo el ultimo registro de la tabla users
+        return $us->id;
     }
 }

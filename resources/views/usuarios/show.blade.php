@@ -1,7 +1,7 @@
 @extends('layout')
 @section('contenido')
 
-<h1>{{$user->name}}</h1>
+<h1>Usuario {{$user->name}}</h1>
 <table class="table">
     <tr>
         <th>Nombre</th>
@@ -11,6 +11,17 @@
         <th>Email</th>
         <td>{{$user->email}}</td>
     </tr>
+    <tr>
+            <th>Dni</th>
+            <td>{{$user->dni}}</td>
+    </tr>
+    <tr>
+            <th>Tipo de Documento</th>
+            <td>
+               
+                {{$tipo->nombre}}</td>
+    </tr>
+
     {{-- <tr>
         <th>Roles</th>
         <td>@foreach ($user->roles as $role)
@@ -18,3 +29,4 @@
         @endforeach</td>
     </tr> --}}
 </table>
+@stop

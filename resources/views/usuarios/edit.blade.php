@@ -18,11 +18,20 @@
         Email
         <input class="form-control" type="text" name="email" value="{{$user->email}}">
         {!!$errors->first('email','<span class=error>:message</span>')!!}
-         </label><br>
-       
-         
-         
+         </label><br>  
+         Nro Documento
+        <input class="form-control" type="text" name="dni" value="{{$user->dni}}">
+            {!!$errors->first('dni','<span class=error>:message</span>')!!}
+        </label><br>
 
+         <div class="form-group">
+                Tipo de Dni
+                <select  class="select" name="tipo" class="form-control">
+                    @foreach($tipos as $tipo)
+                     <option value="{{$tipo->id}}">{{$tipo->nombre}} </option>
+                    @endforeach
+                </select>
+            </div>
         <input class="btn btn-primary" type="submit" value="Enviar"> 
     </form>
 

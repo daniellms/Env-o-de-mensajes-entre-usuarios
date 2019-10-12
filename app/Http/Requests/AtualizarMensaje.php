@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ActualizarUsuario extends FormRequest
+class AtualizarMensaje extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class ActualizarUsuario extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|unique:users,email,'.$this->route('usuario'),
-            'dni' => 'required|numeric|min:0',
-            'tipo' => 'required'
+            'nombre' => 'required',
+            'mensaje'=> 'required'
         ];
     }
 }

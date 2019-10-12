@@ -26,10 +26,21 @@ Route::get('usuarios/edit/{id}',[  //esta ruta es redundante ya q llama al contr
     'uses' => 'ControladorUsuario@edit',
     'as' => 'user.edit'
     ]);
+Route::put('usuarios/{id}',[  //esta ruta es redundante ya q llama al controlador directamente
+    'uses' => 'ControladorUsuario@update',
+    'as' => 'user.update'
+    ]);
+
     Route::delete('usuarios/{id}',[     // toma los datos del formulario
         'uses' => 'ControladorUsuario@destroy',
         'as' => 'user.destroy'
     ]);
+ Route::get('usuarios/show/{id}',[  
+        'uses' => 'ControladorUsuario@show',
+        'as' => 'user.show'
+        ]);
+
+
  Route::get('mensajes',[
     'uses' => 'ControladorMensaje@index',
     'as' => 'mensajes'
@@ -42,3 +53,30 @@ Route::get('usuarios/edit/{id}',[  //esta ruta es redundante ya q llama al contr
     'uses' => 'ControladorMensaje@store',
     'as' => 'mensajes.store'
  ]);
+ Route::get('mensajes/show{id}',[
+    'uses' => 'ControladorMensaje@show',
+    'as' => 'mensajes.show'
+ ]);
+ Route::get('mensajes/bandeja',[
+    'uses' => 'ControladorMensaje@bandeja',
+    'as' => 'mensajes.bandeja'
+ ]);
+ Route::delete('mensajes/{id}',[     // toma los datos del formulario
+    'uses' => 'ControladorMensaje@destroy',
+    'as' => 'mensajes.destroy'
+]);
+Route::get('mensajes/edit/{id}',[
+    'uses' => 'ControladorMensaje@edit',
+    'as' => 'mensajes.edit'
+]);
+Route::put('mensajes/{id}',[
+    'uses' => 'ControladorMensaje@update',
+    'as' => 'mensajes.update'
+]);
+
+
+
+Route::get('ver',[
+    'uses' => 'ControladorUsuario@ver',
+]);
+

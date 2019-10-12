@@ -15,22 +15,22 @@
        <label for="nombre">  
              Nombre
              <input class="form-control" type="text" name="nombre" value="{{old('nombre')}}"> 
-             {!!$errors->first('nombre')!!} <!--validacion de form con el metodo mensajes de controlador-->
+             {!!$errors->first('nombre','<span class=error>:message</span>')!!} <!--validacion de form con el metodo mensajes de controlador-->
         </label><br>
         <label for="email">
             Email
             <input class="form-control" type="text" name="email" value="{{old('email')}}">
-            {!!$errors->first('email')!!}
+            {!!$errors->first('email','<span class=error>:message</span>')!!}
         </label><br>
         <label for="pass">
             Contraseña
             <input class="form-control" type="password" name="pass" value="{{old('pass')}}">
-            {!!$errors->first('pass')!!}
+            {!!$errors->first('pass','<span class=error>:message</span>')!!}
         </label><br>
         <label for="pass">
             Nro Documento
             <input class="form-control" type="text" name="dni" value="{{old('dni')}}">
-            {!!$errors->first('dni')!!}
+            {!!$errors->first('dni','<span class=error>:message</span>')!!}
         </label><br>
 
         <div class="form-group">

@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(TipoDni::class);
     }
+    public function mensajes()
+    {
+        return $this->belongsToMany(Mensaje::class); // pertenece a muchos
+//en caso q tenga otro nombre la tabla (Mensaje::class,'otro_nombre_detabla')
+    }
 }

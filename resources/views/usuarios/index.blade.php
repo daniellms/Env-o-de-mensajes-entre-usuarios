@@ -1,6 +1,6 @@
 @extends('layout')
 @section('contenido')
-    <h1>index</h1>
+    <h1>Todos los Usuarios</h1>
     <table  class="table letramediana" >
             {{-- class="table" --}}
         <thead>
@@ -21,6 +21,8 @@
                   {{-- <td> --}}
                     <td>
                         <a class="btn btn-info btn-xs"
+                        href="{{ route('usuarios.show', $user->id) }}">Mostrar</a>
+                        <a class="btn btn-info btn-xs"
                         href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
                        <form style="display:inline;"
                         method="POST"
@@ -30,10 +32,7 @@
                         {!! method_field('DELETE') !!} {{-- esto es para q me reconozca el navegador solo para eso --}}
                          <button class="btn btn-danger btn-xs" type="submit">Eliminar</button>
                     </form> 
-                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Modal
-                      </button>
-                  </td> --}}
+                    
   
               </tr>
           @endforeach

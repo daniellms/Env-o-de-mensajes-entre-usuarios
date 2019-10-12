@@ -1,3 +1,4 @@
+{{-- {{dd(auth()->user()->mensajes )}}  --}}
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -4,6 +4,7 @@ use App\TipoDni;
 use Illuminate\Database\Seeder;
 Use App\User;
 use App\Mensaje;
+use App\MensajeUser;
 use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->createUser();
         $this->createTiposDni();
         $this->createMensaje();
+        $this->createMensajeUser();
+
     }
     protected function createUser()
     {
@@ -77,19 +80,25 @@ class DatabaseSeeder extends Seeder
        Mensaje::create([
             'nombre' => 'Ban injustificado',
             'mensaje' => 'Me banearon sin ninguna razon, necesito mi cuenta de nuevo',
-            'id_emisor' => 3,
-            'id_receptor' => 1
+            // 'id_emisor' => 3,
+            // 'id_receptor' => 1
        ]);
        Mensaje::create([
         'nombre' => 'Consulta de Precios cuenta vip',
         'mensaje' => 'Buenas tardes, cuanto me sale una cuenta admin en el servidor del juego?',
-        'id_emisor' => 2,
-        'id_receptor' => 1
+        // 'id_emisor' => 2,
+        // 'id_receptor' => 1
         ]);
         Mensaje::create([
             'nombre' => 'Sugerencia',
             'mensaje' => 'Hola, mi sugerencia es que pongan un foro publico en la pagina'
             ]);
+
+    }
+    protected function createMensajeUser(){
+    
+      
+        
 
     }
 }
