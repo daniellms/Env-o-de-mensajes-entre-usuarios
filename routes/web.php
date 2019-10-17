@@ -57,7 +57,7 @@ Route::put('usuarios/{id}',[  //esta ruta es redundante ya q llama al controlado
     'uses' => 'ControladorMensaje@show',
     'as' => 'mensajes.show'
  ]);
- Route::get('mensajes/bandeja',[
+ Route::get('mensajes/bandeja{id}',[
     'uses' => 'ControladorMensaje@bandeja',
     'as' => 'mensajes.bandeja'
  ]);

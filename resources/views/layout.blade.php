@@ -9,7 +9,7 @@
     <title>Layout</title>
 </head>
 <body>
-    <h1 class="fondo">E x a m e n <h1>
+    <h1 class="fondo ">E x a m e n <h1>
             <div class="navbar" >
                     {{-- col-md-8 offset-md-4 nav --}}
                     <a   href="<?php echo route('home')?>">Home</a>
@@ -25,6 +25,7 @@
                     
                 </div>
             <div class="container letramediana">
+                    <br><br>
                     @yield('contenido')
                    
                     {{-- <footer>CopyRigth {{date('y')}}</footer> --}}

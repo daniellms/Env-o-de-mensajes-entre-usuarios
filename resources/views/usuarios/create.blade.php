@@ -35,7 +35,7 @@
 
         <div class="form-group">
             Tipo de Dni
-            <select  class="select" name="tipo" class="form-control">
+            <select  class="select " name="tipo" class="form-control">
                 @foreach($tipos as $tipo)
                  <option value="{{$tipo->id}}">{{$tipo->nombre}} </option>
                 @endforeach

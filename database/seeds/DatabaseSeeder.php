@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->createUser();
         $this->createTiposDni();
         $this->createMensaje();
-        $this->createMensajeUser();
+      //  $this->createMensajeUser();
 
     }
     protected function createUser()
@@ -78,19 +78,19 @@ class DatabaseSeeder extends Seeder
     protected function createMensaje()
     {
        Mensaje::create([
-            'nombre' => 'Ban injustificado',
+            'motivo' => 'Ban injustificado',
             'mensaje' => 'Me banearon sin ninguna razon, necesito mi cuenta de nuevo',
-            // 'id_emisor' => 3,
-            // 'id_receptor' => 1
+            'envia_id' => 3,
+            'recibe_id' => 1
        ]);
        Mensaje::create([
-        'nombre' => 'Consulta de Precios cuenta vip',
+        'motivo' => 'Consulta de Precios cuenta vip',
         'mensaje' => 'Buenas tardes, cuanto me sale una cuenta admin en el servidor del juego?',
-        // 'id_emisor' => 2,
-        // 'id_receptor' => 1
+        'envia_id' => 2,
+        'recibe_id' => 1
         ]);
         Mensaje::create([
-            'nombre' => 'Sugerencia',
+            'motivo' => 'Sugerencia',
             'mensaje' => 'Hola, mi sugerencia es que pongan un foro publico en la pagina'
             ]);
 

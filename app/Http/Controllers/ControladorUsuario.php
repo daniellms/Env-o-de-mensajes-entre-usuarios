@@ -15,7 +15,7 @@ class ControladorUsuario extends Controller
     
     function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' =>['create','store']]);
         
     }
 
@@ -48,7 +48,6 @@ class ControladorUsuario extends Controller
     public function store(StoreUsuario $request)
     {
         //return  $request->input('tipo');
-
        $usuario = DB::table('users')->insert([     
                     "name" => $request -> input('nombre'),    
                     "email" => $request -> input('email'),
@@ -59,9 +58,15 @@ class ControladorUsuario extends Controller
                     "updated_at" => Carbon::now(),
 
                ]);
-
-      return  redirect()->route('login')->with('success','Gracias por registrarse, puede iniciar sesion ahora si desea');;
+      if(auth()->check())
+      {
+        $users = \App\User::all(); 
+        return view('usuarios.index',compact('users'));
+      }else
+      {
+        return  redirect()->route('login')->with('success','Gracias por registrarse, puede iniciar sesion ahora si desea');;
      // return redirect()->route('login');
+      }
     }
 
     /**

@@ -1,6 +1,8 @@
 @extends('layout')
 @section('contenido')
     <h1>Todos los Usuarios</h1>
+    <a class="btn btn-dark btn-lg izquierda "
+         href="{{ route('user.crear') }}">Crear Usuario</a>
     <table  class="table letramediana" >
             {{-- class="table" --}}
         <thead>

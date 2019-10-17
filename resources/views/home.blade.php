@@ -1,11 +1,13 @@
 @extends('layout')
 @section('contenido')
-<h1>Estas en el Home</h1>
+<h1 class="h1 display-4 kbd">Bienvenido al Proyecto E x a m e n</h1>
+<br><br>
 @if(auth()->check()) 
-<p>{{auth()->user()->name}}   Email: {{auth()->user()->email}} </p>
+<p>Usuario: {{auth()->user()->name}}</p>  
+<p> Email: {{auth()->user()->email}} </p>
 <p>Usted se encuentra autenticado</p>
 @else
-<p>Usted No este autenticado </p>
+<p>Usted No esta autenticado </p>
 @endif
 @stop
     

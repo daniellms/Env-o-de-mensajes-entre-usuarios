@@ -15,10 +15,10 @@ class CrearTablaMensaje extends Migration
     {
         Schema::create('mensajes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
+            $table->string('motivo');
             $table->text('mensaje');
-            // $table->integer('id_emisor')->nullable();
-            // $table->integer('id_receptor')->nullable();
+            $table->integer('envia_id')->nullable();
+            $table->integer('recibe_id')->nullable();
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class ControladorMensaje extends Controller
     }
 
     public function index()
-    {
+    {   
         return view('mensajes.index');
     }
 
@@ -48,10 +48,10 @@ class ControladorMensaje extends Controller
     {
         
         DB::table('mensajes')->insert([     
-                    "nombre" => $request -> input('nombre'),     
+                    "motivo" => $request -> input('nombre'),     
                     "mensaje" => $request -> input('mensaje'),
-                    // "id_emisor" => $request -> input('emisorid'),
-                    // "id_receptor" => $request -> input('correo'),
+                    "envia_id" => $request -> input('emisorid'),
+                    "recibe_id" => $request -> input('correo'),
                     "created_at" => Carbon::now(), // carbon usa fecha, now hora actual
                     "updated_at" => Carbon::now(),
                ]);
@@ -75,43 +75,52 @@ class ControladorMensaje extends Controller
      */
     public function show($id)
     {
+        // envia_id  recibe_id
         $user = User::findOrFail($id);
-        $mensajes = DB::table('mensaje_user')->get();
-        // foreach ($mensajes as $mensaje)
-        // {
-        //     if($mensaje->receptor_id ===$user->id)
-        //     {
-
-        //     }
-        // }
-        return view('mensajes.show',compact('user','mensajes'));//('user','mensajes')
-    }
-
-    public function bandeja()
-    {
-        // $mensajes = DB::table('mensaje_user')->where('id',auth()->user()->id);
-        // return 'parece q anda';
-        $mensajes = DB::table('mensaje_user')->get();
+        $mensajes = DB::table('mensajes')->get();
         foreach ($mensajes as $mensaje)
         {
-             if($mensaje->receptor_id === auth()->user()->id)
-             {
-                $bandeja[] = Mensaje::findOrFail($mensaje->mensaje_id);
-                $enviadospor[] = User::findOrFail($mensaje->user_id);
-                //echo $mensaje->receptor_id;
+            if($mensaje->envia_id === $user->id)
+            {
+                $mismsjs[] = $mensaje;
+                $enviado[] = User::findOrFail($mensaje->recibe_id);
              }
-         }
-         
-        //$mensaje = Mensaje::findOrFail($id);
-        return view('mensajes.bandeja',compact('mensajes','bandeja','enviadospor'));
+        }
+        return view('mensajes.show',compact('user','mismsjs','enviado'));//(,'mismsjs','mensajes')
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function bandeja($id)
+    {
+        //// $mensajes = DB::table('mensaje_user')->where('id',auth()->user()->id);
+       // // return 'parece q anda';
+        // $mensajes = DB::table('mensaje_user')->get();
+        // foreach ($mensajes as $mensaje)
+        // {
+        //      if($mensaje->receptor_id === auth()->user()->id)
+        //      {
+        //         $bandeja[] = Mensaje::findOrFail($mensaje->mensaje_id);
+        //         $enviadospor[] = User::findOrFail($mensaje->user_id);
+        //         //echo $mensaje->receptor_id;
+        //      }
+        //  }
+         
+        ////$mensaje = Mensaje::findOrFail($id);
+        //return view('mensajes.bandeja',compact('mensajes','bandeja','enviadospor'));
+        $user = User::findOrFail($id);
+        $mensajes = DB::table('mensajes')->get();
+        foreach ($mensajes as $mensaje)
+        {
+            if($mensaje->recibe_id ===$user->id)
+            {
+                $mismsjs[] = $mensaje;
+                $enviadospor[] = User::findOrFail($mensaje->envia_id);
+              }//else{
+            //     $mismsjs[] = null;
+            //  }
+        }
+        return view('mensajes.bandeja',compact('user','mismsjs','enviadospor'));
+    }
+
     public function edit($id)
     {
         $mensaje = Mensaje::findOrFail($id);
@@ -127,10 +136,15 @@ class ControladorMensaje extends Controller
      */
     public function update(AtualizarMensaje $request, $id)
     {
-        $mensaje = Mensaje::findOrFail($id);
-       $mensaje->update($request->all());
+       // dd($request);
+    //    $mensaje = Mensaje::findOrFail($id);
+    //    $mensaje->update($request->all());
+       DB::table('mensajes')->where('id',$id)->update([
+        "motivo" => $request -> input('motivo'), 
+        "mensaje" => $request -> input('mensaje'),
+        "updated_at" => Carbon::now()
+        ]);
        return back()->with('info','Mensaje Actualizado');
-        //return 'actualizar';
     }
 
     /**

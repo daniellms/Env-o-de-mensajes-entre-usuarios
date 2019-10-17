@@ -27,7 +27,7 @@ class ActualizarUsuario extends FormRequest
             'name' => 'required',
             'email' => 'required|unique:users,email,'.$this->route('usuario'),
             'dni' => 'required|numeric|min:0',
-            'tipo' => 'required'
+            //'tipo' => 'required'
         ];
     }
 }

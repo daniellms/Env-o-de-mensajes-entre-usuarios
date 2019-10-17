@@ -24,7 +24,7 @@ class AtualizarMensaje extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required',
+            'motivo' => 'required',
             'mensaje'=> 'required'
         ];
     }

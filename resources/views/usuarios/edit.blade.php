@@ -11,7 +11,7 @@
      
         <label for="nombre">  
         Nombre
-        <input class="form-control" type="text" name="name" value="{{$user->name}}"> <!--campo--> <!--old hace q no borre el nombre una ve q el form rechaza campos en blancos-->
+        <input class="form-control" type="text" name="name" value="{{$user->name}}"> 
         {!!$errors->first('name','<span class=error>:message</span>')!!} <!--validacion de form con el metodo users de controlador-->
         </label><br>
         <label for="email">
@@ -28,6 +28,9 @@
                 Tipo de Dni
                 <select  class="select" name="tipo" class="form-control">
                     @foreach($tipos as $tipo)
+                    @if($user->tipo_dni === $tipo->id)
+                        <option value="{{$tipo->id}}" selected="true" disabled="disabled">{{$tipo->nombre}}</option> {{-- //corregido --}}
+                    @endif
                      <option value="{{$tipo->id}}">{{$tipo->nombre}} </option>
                     @endforeach
                 </select>
