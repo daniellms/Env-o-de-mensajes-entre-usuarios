@@ -91,21 +91,7 @@ class ControladorMensaje extends Controller
 
     public function bandeja($id)
     {
-        //// $mensajes = DB::table('mensaje_user')->where('id',auth()->user()->id);
-       // // return 'parece q anda';
-        // $mensajes = DB::table('mensaje_user')->get();
-        // foreach ($mensajes as $mensaje)
-        // {
-        //      if($mensaje->receptor_id === auth()->user()->id)
-        //      {
-        //         $bandeja[] = Mensaje::findOrFail($mensaje->mensaje_id);
-        //         $enviadospor[] = User::findOrFail($mensaje->user_id);
-        //         //echo $mensaje->receptor_id;
-        //      }
-        //  }
-         
-        ////$mensaje = Mensaje::findOrFail($id);
-        //return view('mensajes.bandeja',compact('mensajes','bandeja','enviadospor'));
+        
         $user = User::findOrFail($id);
         $mensajes = DB::table('mensajes')->get();
         foreach ($mensajes as $mensaje)
@@ -119,6 +105,48 @@ class ControladorMensaje extends Controller
             //  }
         }
         return view('mensajes.bandeja',compact('user','mismsjs','enviadospor'));
+    }
+
+    public function bandejaIndex($id)
+    {
+        
+        $user = User::findOrFail($id);
+        $mensajes = DB::table('mensajes')->get();
+        foreach ($mensajes as $mensaje)
+        {
+            if($mensaje->recibe_id ===$user->id)
+            {
+                $mismsjs[] = $mensaje;
+            }
+        }
+        return view('mensajes.bandejaIndex',compact('user','mismsjs'));
+    }
+    public function unMensaje($id)
+    {
+        $mensaje = DB::table('mensajes')->where('id',$id)->first();
+        $envio = DB::table('users')->where('id',$mensaje->envia_id)->first();
+        return view('mensajes.unico',compact('envio','mensaje'));
+    }
+   
+    public function eviadoIndex($id)
+    {
+        $user = User::findOrFail($id);
+        $mensajes = DB::table('mensajes')->get();
+        foreach ($mensajes as $mensaje)
+        {
+            if($mensaje->envia_id === $user->id)
+            {
+                $mismsjs[] = $mensaje;
+            }
+        }
+        return view('mensajes.enviado',compact('user','mismsjs'));
+    }
+
+    public function enviado ($id)
+    {
+        $mensaje = DB::table('mensajes')->where('id',$id)->first();
+        $destino = DB::table('users')->where('id',$mensaje->recibe_id)->first();
+        return view('mensajes.unicoEnviado',compact('destino','mensaje'));
     }
 
     public function edit($id)
@@ -153,9 +181,23 @@ class ControladorMensaje extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$desde)
     {
-        return 'se elimino';
+    //     return 'se elimino '.$desde;
+    //     
+       if($desde === "bandeja")
+       {
+        DB::table('mensajes')->where('id',$id)->delete();
+        //return redirect()->route('mensajes/indexba',auth()->user()->id);
+        return redirect()->route('mensajes.bandejaIndex',auth()->user()->id);
+        
+       }
+       else
+       {
+        DB::table('mensajes')->where('id',$id)->delete();
+        return redirect()->route('mensajes.enviados',auth()->user()->id);
+        
+       }
     }
     
 }

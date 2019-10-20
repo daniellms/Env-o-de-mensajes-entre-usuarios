@@ -61,7 +61,25 @@ Route::put('usuarios/{id}',[  //esta ruta es redundante ya q llama al controlado
     'uses' => 'ControladorMensaje@bandeja',
     'as' => 'mensajes.bandeja'
  ]);
- Route::delete('mensajes/{id}',[     // toma los datos del formulario
+ Route::get('mensajes/indexba{id}',[
+    'uses' => 'ControladorMensaje@bandejaIndex',
+    'as' => 'mensajes.bandejaIndex'
+ ]);
+ Route::get('mensajes/unico{id}',[
+    'uses' => 'ControladorMensaje@unMensaje',
+    'as' => 'mensajes.unico'
+ ]);
+ Route::get('mensajes/enviados{id}',[
+    'uses' => 'ControladorMensaje@eviadoIndex',
+    'as' => 'mensajes.enviados'
+ ]);
+ Route::get('mensajes/enviado{id}',[
+    'uses' => 'ControladorMensaje@enviado',
+    'as' => 'mensajes.enviado'
+ ]);
+
+
+ Route::delete('mensajes/{id}/{desde}',[     // toma los datos del formulario
     'uses' => 'ControladorMensaje@destroy',
     'as' => 'mensajes.destroy'
 ]);
